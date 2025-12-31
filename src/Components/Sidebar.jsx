@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { 
   LayoutDashboard,
   Users,
-  User,
   BarChart3,
   Settings,
   HelpCircle,
@@ -149,22 +148,7 @@ export default function Sidebar() {
           </div>
         </div>
 
-        {/* User Profile */}
-        <div className="p-6 border-b border-gray-800">
-          <div className="flex items-center space-x-3">
-            <div className="relative">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <User size={24} />
-              </div>
-              <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-gray-900"></div>
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-white truncate">Administrator</h3>
-              <p className="text-sm text-gray-400 truncate">admin@employee-pro.com</p>
-            </div>
-          </div>
-        </div>
-
+      
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto py-4">
           <div className="px-4">
