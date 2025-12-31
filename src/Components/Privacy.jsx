@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from './Sidebar';
+
 import {
   Shield,
   Lock,
@@ -9,11 +9,8 @@ import {
   FileText,
   CheckCircle,
   AlertTriangle,
-  Users,
-  Database,
   Globe,
   Clock,
-  Bell,
   Key,
   Fingerprint,
   Save,

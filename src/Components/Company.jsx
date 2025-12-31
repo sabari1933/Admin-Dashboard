@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Sidebar from './Sidebar';
 import {
   Building,
   MapPin,
@@ -13,7 +12,6 @@ import {
   Save,
   X,
   Upload,
-  CheckCircle,
   Briefcase,
   Target,
   Award,
@@ -69,7 +67,6 @@ function Company() {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* <Sidebar /> */}
       
       <main className="flex-1 p-6 overflow-y-auto">
         {/* Header */}

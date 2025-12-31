@@ -71,6 +71,7 @@ function Register() {
       };
       
       const response = await axios.post('http://localhost:33/register', userData);
+      console.log("response :",response.data);
       
       setSuccess('Account created successfully! Redirecting to login...');
       

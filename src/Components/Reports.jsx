@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import Sidebar from './Sidebar';
+
 import {
   BarChart3,
-  PieChart,
-  LineChart,
   TrendingUp,
   TrendingDown,
   Download,
@@ -50,7 +48,7 @@ function Reports() {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* <Sidebar /> */}
+
       
       <main className="flex-1 p-6 overflow-y-auto">
         {/* Header */}

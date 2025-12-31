@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Layout from './Components/Layout';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import ProtectedLayout from "./Components/ProtectedLayout";
 import Login from './Components/auth/Login';
 import Register from './Components/auth/Register';
 import Dashboard from './Components/Dashboard';
@@ -16,37 +16,13 @@ import Settings from './Components/Settings';
 import Help from './Components/Help';
 import Privacy from './Components/Privacy';
 
-// Private Route Component
-const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
-  return token ? children : <Navigate to="/login" />;
-};
-
-// Public Route Component (redirect if logged in)
-const PublicRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
-  return token ? <Navigate to="/dashboard" /> : children;
-};
-
+// Main App Component
 function App() {
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
     setLoading(false);
   }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setUser(null);
-    window.location.href = '/login';
-  };
 
   if (loading) {
     return (
@@ -61,90 +37,50 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Layout>
-      <div className="App">
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/login" element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          } />
-          <Route path="/register" element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          } />
+      <Routes>
+        {/* Public Routes - No Layout */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        
+        {/* Private Routes - With Layout */}
+        <Route path="/*" element={<PrivateRoutes />} />
+        
+        {/* Default redirect */}
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
-          {/* Private Routes */}
-          <Route path="/" element={
-            <PrivateRoute>
-              
-              <Dashboard />
-            </PrivateRoute>
-          } />
-          <Route path="/home" element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          } />
-          <Route path="/create" element={
-            <PrivateRoute>
-              <Create />
-            </PrivateRoute>
-          } />
-          <Route path="/read/:id" element={
-            <PrivateRoute>
-              <Read />
-            </PrivateRoute>
-          } />
-          <Route path="/edit/:id" element={
-            <PrivateRoute>
-              <Edit />
-            </PrivateRoute>
-          } />
-          <Route path="/attendance" element={
-            <PrivateRoute>
-              <Attendance />
-            </PrivateRoute>
-          } />
-          <Route path="/payroll" element={
-            <PrivateRoute>
-              <Payroll />
-            </PrivateRoute>
-          } />
-          <Route path="/reports" element={
-            <PrivateRoute>
-              <Reports />
-            </PrivateRoute>
-          } />
-          <Route path="/company" element={
-            <PrivateRoute>
-              <Company />
-            </PrivateRoute>
-          } />
-          <Route path="/settings" element={
-            <PrivateRoute>
-              <Settings />
-            </PrivateRoute>
-          } />
-          <Route path="/help" element={
-            <PrivateRoute>
-              <Help />
-            </PrivateRoute>
-          } />
-          <Route path="/privacy" element={
-            <PrivateRoute>
-              <Privacy />
-            </PrivateRoute>
-          } />
+// Private Routes Component
+function PrivateRoutes() {
+  const location = useLocation();
+  const token = localStorage.getItem('token');
 
-          {/* Default redirect */}
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </div>
-      </Layout>
-      </BrowserRouter>
+  // If no token, redirect to login
+  if (!token) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  // If token exists, render Layout with protected routes
+  return (
+    <Routes>
+      <Route element={<ProtectedLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/read/:id" element={<Read />} />
+        <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/attendance" element={<Attendance />} />
+        <Route path="/payroll" element={<Payroll />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/company" element={<Company />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/help" element={<Help />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Route>
+    </Routes>
   );
 }
 

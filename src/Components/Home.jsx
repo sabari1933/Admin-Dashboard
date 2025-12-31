@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Sidebar from "./Sidebar";
 import { 
   Search, 
   Eye, 
@@ -9,16 +8,12 @@ import {
   Trash2, 
   UserPlus,
   Filter,
-  Download,
   ChevronDown,
   Mail,
   Phone,
-  MapPin,
   CheckCircle,
-  XCircle,
   Loader2,
   DollarSign,
-  MoreVertical,
   ArrowUpDown,
   Users,
   Building

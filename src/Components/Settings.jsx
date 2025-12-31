@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from './Sidebar';
+
 import {
   Settings as SettingsIcon,
   Save,
@@ -7,16 +7,11 @@ import {
   Lock,
   Palette,
   Database,
-  Globe,
-  Users,
-  Mail,
-  Clock,
   Shield,
   BellRing,
   Eye,
   EyeOff,
   CheckCircle,
-  XCircle
 } from 'lucide-react';
 
 function Settings() {

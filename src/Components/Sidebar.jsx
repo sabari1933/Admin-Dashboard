@@ -4,7 +4,6 @@ import {
   LayoutDashboard,
   Users,
   User,
-  FileText,
   BarChart3,
   Settings,
   HelpCircle,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from './Sidebar';
+
 import {
   HelpCircle,
   Search,
@@ -16,7 +16,7 @@ import {
   CheckCircle,
   AlertCircle,
   Users,
-  Calendar
+ 
 } from 'lucide-react';
 
 function Help() {
